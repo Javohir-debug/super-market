@@ -11,5 +11,8 @@ public class ApiController {
        return "hello world";
    }
 
-
+   @GetMapping("/git")
+    public String git(){
+       return "Hello git";
+   }
 }
