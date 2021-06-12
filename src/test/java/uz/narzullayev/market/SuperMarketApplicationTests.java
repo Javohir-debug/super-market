@@ -1,10 +1,9 @@
 package uz.narzullayev.market;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class SuperMarketApplicationTests {
+
+public class SuperMarketApplicationTests implements MainTest{
 
     @Test
     void contextLoads() {
