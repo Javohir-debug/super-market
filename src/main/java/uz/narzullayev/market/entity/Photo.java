@@ -1,17 +1,12 @@
 package uz.narzullayev.market.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "photo")
 public class Photo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Transient
     private static final String sequence="photo_sequence";
@@ -22,41 +17,36 @@ public class Photo implements Serializable {
     @Column(name ="id")
     private Integer id;
 
-    @Column(name = "path")
+
+    @Column(name = "photo_name")
+    private String photoName;
+
+    @Column(name = "size",nullable = false)
+    private Integer size;
+
+    @Column(name = "path",nullable = false)
     private String absolutePath;
 
-    @Column(name = "extension")
+    @Column(name = "extension",nullable = false)
     private String extension;
 
-    @Column(name = "file_size")
-    private Integer fileSize;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id",referencedColumnName = "id")
     private Product product;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public static String getSequence() {
-        return sequence;
-    }
-
-    public Integer getFileSize() {
-        return fileSize;
-    }
-
-    public void setFileSize(Integer fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
+    public Photo(Integer id, String photoName,
+                 Integer size, String absolutePath,
+                 String extension, Product product) {
+        this.id = id;
+        this.photoName = photoName;
+        this.size = size;
+        this.absolutePath = absolutePath;
+        this.extension = extension;
         this.product = product;
+    }
+
+    public Photo() {
+
     }
 
     public Integer getId() {
@@ -65,6 +55,30 @@ public class Photo implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getPhotoName() {
+        return photoName;
+    }
+
+    public void setPhotoName(String photoName) {
+        this.photoName = photoName;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public String getAbsolutePath() {
@@ -81,15 +95,5 @@ public class Photo implements Serializable {
 
     public void setExtension(String extension) {
         this.extension = extension;
-    }
-
-    @Override
-    public String toString() {
-        return "Photo{" +
-                "id=" + id +
-                ", absolutePath='" + absolutePath + '\'' +
-                ", extension='" + extension + '\'' +
-                ", fileSize=" + fileSize +
-                '}';
     }
 }

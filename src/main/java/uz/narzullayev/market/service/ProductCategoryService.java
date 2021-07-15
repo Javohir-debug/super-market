@@ -15,7 +15,10 @@ public class ProductCategoryService {
     }
 
 
-    public ProductCategory save(ProductCategory productCategory){
-        return productCategoryRepository.save(productCategory);
+    public ProductCategory save(ProductCategory category) {
+        if (category.getId() != null) {
+            return productCategoryRepository.save(category);
+        }
+        throw new RuntimeException("This object exist");
     }
 }

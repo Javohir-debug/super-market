@@ -74,4 +74,14 @@ public class Customer implements Serializable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumbers = phoneNumber;
     }
+
+    @Override
+    public String toString() {
+        return  "Customer{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", country=" + country +
+                ", phoneNumbers='" + phoneNumbers + '\'' +
+                '}';
+    }
 }

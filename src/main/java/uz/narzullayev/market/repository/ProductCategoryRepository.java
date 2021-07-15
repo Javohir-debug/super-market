@@ -6,5 +6,4 @@ import uz.narzullayev.market.entity.ProductCategory;
 
 @Repository
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory,Integer> {
-
 }

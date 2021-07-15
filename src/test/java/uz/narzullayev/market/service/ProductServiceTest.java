@@ -1,6 +1,7 @@
 package uz.narzullayev.market.service;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.assertj.core.util.Arrays;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -10,90 +11,89 @@ import uz.narzullayev.market.MainTest;
 import uz.narzullayev.market.entity.Photo;
 import uz.narzullayev.market.entity.Product;
 import uz.narzullayev.market.entity.ProductCategory;
+import uz.narzullayev.market.repository.PhotoRepository;
 
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProductServiceTest implements MainTest {
 
-    private final ProductService productService;
-    private final ProductCategoryService productCategoryService;
-    private final PhotoService photoService;
-    private final LoadService loadService;
-    private Product product;
-    private Set<Photo> photos;
+    @Autowired
+    private ProductService productService;
 
     @Autowired
-    public ProductServiceTest(ProductService productService,
-                              ProductCategoryService productCategoryService,
-                              PhotoService photoService, LoadService loadService) {
-        this.productService = productService;
-        this.productCategoryService = productCategoryService;
-        this.photoService = photoService;
-        this.loadService = loadService;
-    }
+    private PhotoRepository photoRepository;
+    @Autowired
+    private ProductCategoryService productCategoryService;
+    @Autowired
+    private LoadService loadService;
+    private Product product;
 
-
-
-
-
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    public void init() throws Exception{
         ProductCategory productCategory=new ProductCategory();
         productCategory.setId(1);
         productCategory.setCategoryName("Elektronika");
         ProductCategory category = productCategoryService.save(productCategory);
 
-
-        Product product = new Product();
-        product.setProductName("Hp");
-        product.setPrice(9_000_000.0);
+        Product product=new Product();
         product.setId(1);
-        product.setDescription("Eng arzon va sifatli");
-        product.setProductCategory(category);
+        product.setCategory(category);
+        product.setPrice(9_000_000.0);
+        product.setProductName("Hp");
+        product.setDescription("Arzon va sifatli");
 
-        Photo photo1 = new Photo();
-        photo1.setId(1);
-        photo1.setExtension("jpeg");
-        photo1.setFileSize(20100);
-        photo1.setProduct(product);
+        Photo array = new Photo(1, "Birinchi", 900, "c", "jpg", product);
+        Photo photo = new Photo(2, "Ikkinchi", 600, "c", "pmg", product);
+        Photo photo1 = new Photo(3, "Uchinchi", 404, "c", "bnp", product);
+        Set<Photo> photoList= Stream.of(array,photo,photo1).collect(Collectors.toSet());
+        product.setPhotos(photoList);
 
-        Photo photo2 = new Photo();
-        photo2.setId(2);
-        photo2.setExtension("png");
-        photo2.setFileSize(12000);
-        photo2.setProduct(product);
+        this.product=product;
 
-        this.photos = new HashSet<>(Arrays.asList(photo2, photo1));
-        this.product = product;
+
+    }
+    @Test
+    @Order(2)
+    @Transactional(readOnly = true)
+    void findAllProduct() {
+        assertNotNull(productCategoryService);
+        assertNotNull(productService);
+        List<Product> allProduct = productService.findAllProduct();
+        System.out.println();
+
     }
 
     @Test
     @Order(1)
-    @DisplayName("Yangi mahsulot qo'shish")
     void save() {
-        assertNotNull(product);
-        assertNotNull(productService);
-        product.setPhotos(photos);
-        productService.save(product);
-
-
-
+        Product product = this.product;
+        Set<Photo> photos = product.getPhotos();
+        product.setPhotos(new HashSet<>());
+        product.setCategoryId(product.getCategory().getId());
+        Product save = productService.update(product);
+        assertEquals(product.getId(),save.getId());
+        save.setPhotos(photos);
+        productService.update(save);
     }
 
     @Test
-    @Order(2)
-    @DisplayName("Loading fetch eager and lazy")
-    @Transactional
-    void findById(){
-        Product byId = productService.findById(1);
-     //   byId = loadService.lazy_to_eager(Product.class, Product.PHOTOS, byId.getId());
-        Set<Photo> photos = byId.getPhotos();
-        assertEquals(Objects.requireNonNull(byId).getId(),1);
+    @Order(3)
+    @DisplayName("Lazy and eager")
+    void test_lazy_and_eager() {
+        Product productById = productService.findProductById(1);
+        Product product =
+                loadService.lazy_to_eager(Product.class, Product.PHOTOS, 1);
+        product.getPhotos().forEach(photo -> {
+            photo.getProduct().getPhotos().forEach(photo1 -> {
+
+            });
+        });
+        System.out.println("\n");
     }
 }

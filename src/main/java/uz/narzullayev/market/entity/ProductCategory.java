@@ -6,6 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "product_category")
 public class ProductCategory implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Transient
     private static final String sequence="product_category_sequence";
@@ -16,10 +17,17 @@ public class ProductCategory implements Serializable {
     @Column(name ="id")
     private Integer id;
 
-    @Column(name = "category_name",unique = true)
+
+    @Column(name = "category_name")
     private String categoryName;
 
+    public ProductCategory(Integer id, String categoryName) {
+        this.id = id;
+        this.categoryName = categoryName;
+    }
+    public ProductCategory() {
 
+    }
 
     public Integer getId() {
         return id;

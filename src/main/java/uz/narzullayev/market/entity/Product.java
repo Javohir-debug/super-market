@@ -10,52 +10,55 @@ import java.util.Set;
 @NamedEntityGraph(name = Product.PHOTOS,
         attributeNodes = {@NamedAttributeNode("photos")}
 )
-public class Product implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Product  implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    public static final String PHOTOS ="Product.photos";
     @Transient
     private static final String sequence="product_sequence";
-    @Transient
-    public static final String PHOTOS="Product.photos";
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = sequence)
     @SequenceGenerator(name = sequence, sequenceName = sequence, allocationSize = 1)
     @Column(name ="id")
     private Integer id;
 
-
     @Column(name = "product_name")
     private String productName;
 
-    @Column(name = "product_desc")
+    @Column(name = "description")
     private String description;
-
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    private Set<Photo> photos = new HashSet<>();
-
-
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id",referencedColumnName = "id",insertable = false,updatable = false)
-    private ProductCategory productCategory;
 
     @Column(name = "price")
     private Double price;
 
-    public Product() {
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id",referencedColumnName = "id",updatable = false,insertable = false)
+    private ProductCategory category;
+
+    @Column(name = "category_id")
+    private Integer categoryId;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product",orphanRemoval = true)
+    private Set<Photo> photos=new HashSet<>();
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public Product(Integer id, String productName,
-                   String description,
-                   Set<Photo> photos,
-                   ProductCategory productCategory,
-                   Double price) {
-        this.id = id;
-        this.productName = productName;
-        this.description = description;
-        this.photos = photos;
-        this.productCategory = productCategory;
-        this.price = price;
+    public static String getSequence() {
+        return sequence;
     }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
 
     public Integer getId() {
         return id;
@@ -81,6 +84,18 @@ public class Product implements Serializable {
         this.description = description;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public ProductCategory getCategory() {
+        return category;
+    }
+
     public Set<Photo> getPhotos() {
         return photos;
     }
@@ -89,19 +104,7 @@ public class Product implements Serializable {
         this.photos = photos;
     }
 
-    public ProductCategory getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(ProductCategory productCategory) {
-        this.productCategory = productCategory;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
 }
