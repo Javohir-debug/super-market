@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>All Customer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body class="fixed-sn light-blue-skin">
+
+<div class="container my-3">
+    <div th:replace="~{/fragments/header::header}"></div>
+            <div  class="container my-5" th:switch="${product}">
+                <div class="col-md-10" >
+                    <h2 th:case="null">No record found !!</h2>
+                    <p class="my-5">
+                        <a th:href="@{/admin/product/add}" class="btn btn-primary">
+                            <i class="fas fa-plus-circle ml-2">Add Product</i></a>
+                    </p>
+                    <div >
+                        <div class="card-body" th:case="*">
+                            <form autocomplete="off" th:action="@{/admin/product/search}" class="form-inline mt-2 mt-md-0" method="post" >
+                                <input class="form-control mr-sm-2" th:name="search" type="text" placeholder="Search" aria-label="Search">
+                                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search"/>
+                            </form><br>
+                        <table class="table table-hover table-striped">
+                            <thead class="thead-dark">
+                            <tr><th><i class="fa fa-id-card" aria-hidden="true"></i></th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>PhotoType</th>
+                                <th>PhotoName</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                                <th>View</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              <tr th:each="info:${product}">
+                                  <td th:text="${info.id}"></td>
+                                  <td th:text="${info.name}"></td>
+                                  <td th:text="${info.price}"></td>
+                                  <td th:text="${info.category}"></td>
+                                  <td th:text="${info.photo.contentType}"></td>
+                                  <td th:text="${info.photo.name}"></td>
+                                  <td>
+                                      <a th:href="@{/admin/product/edit/{id}(id=${info.id})}"  class="btn btn-primary btn-lg btn-block">
+                                          <i class="fas fa-edit "></i>
+                                      </a>
+                                  </td>
+                                  <td>
+                                      <a th:href="@{/admin/product/delete/{id}(id=${info.id})}" class="btn btn-danger btn-lg btn-block">
+                                          <i class="fa fa-trash" aria-hidden="true"></i>
+                                      </a>
+                                  </td>
+                                  <td>
+                                      <a th:href="@{/admin/product/view/{id}(id=${info.id})}" class="btn btn-info btn-lg btn-block">
+                                          <i class="fa fa-file-image" aria-hidden="true"></i>
+                                      </a>
+                                  </td>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</body>
+</html>

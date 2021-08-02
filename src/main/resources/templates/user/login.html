@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
+
+</head>
+<body>
+<div class="login-form">
+    <form th:action="@{/login}" autocomplete="off" class="container" id="login" method="post">
+        <h2 class="text-center">Sign in</h2>
+        <div class="alert alert-danger" th:if="${param.error}">Invalid username or password.</div>
+        <div class="alert alert-success" th:if="${param.logout}"> You have been logged out.</div>
+        <div class="form-group">
+            <label for="username">Username</label>:
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" name="username" class="form-control" autofocus="autofocus" required id="username"
+                       placeholder="Username"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>:
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" name="password" class="form-control" required id="password"
+                       placeholder="Password"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary login-btn btn-block">Sign in</button>
+        </div>
+        <a class="btn  btn-success" id="link" th:href="@{/registration}">Registration</a>
+    </form>
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Employee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body>
+<div th:replace="~{/fragments/header::header}"></div>
+<div class="container my-5">
+        <h3 class="alert-info text-center text-primary">Edit Customer</h3>
+        <!--List Customers-->
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-10">
+                    <form th:action="@{/customer/update}" class="was-validated"  th:object="${editCustomer}" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">address</label>
+                                <textarea type="text" th:field="*{address}" class="form-control"
+                                       id="name" placeholder="Ism" >
+                                </textarea>
+                            </div>
+                                <div class="form-group col-md-8 ">
+                                    <label for="country" class="custom-select">country</label>
+                                    <select class="form-control selectpicker"  th:field="*{country}"  id="country"  >
+                                        <option value="">Open this select menu</option>
+                                        <option th:each="country : ${T(uz.narzullayev.market.constant.Country).values()}"
+                                                th:value="${country}" th:text="${country}"></option>
+                                    </select>
+                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="phone" class="col-form-label">Phone</label>
+                                <input type="text" th:field="*{phoneNumber}" class="form-control"
+                                       id="phone" placeholder="phone" required/>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-primary" value=" Submit ">
+                            </div>
+                            <input type="hidden" id="id" th:field="*{id}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

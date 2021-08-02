@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" th:href="@{/admin/customer}" href="#">Users</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/admin/product}" href="#">Product <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/order}" href="#">Order</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" th:href="@{/admin/product}" href="#">Payment</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0" th:action="@{/logout}" method="post">
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Sign Out">
+            </form>
+        </div>
+    </nav>
+</div>
+<div th:fragment="footer">
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+                <!-- Footer Location-->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="mb-4">LOCATION</h4>
+                    <p class="pre-wrap lead mb-0">Navoi city Memorlar 21-46</p>
+                </div>
+                <!-- Footer About Text-->
+                <div class="col-lg-4" >
+                    <h4 class="mb-4">ABOUT DEVELOPER</h4>
+                    <p class="pre-wrap lead mb-0">MY NAME IS JAVOKHIR.I AM JAVA JUNIOR DEVOLER</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<div th:fragment="invoice">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggleDemo01">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link disabled" th:href="@{/}" href="#">Main</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0" th:action="@{/logout}" method="post">
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Sign Out">
+            </form>
+        </div>
+    </nav>
+</div>
+<div th:fragment="section">
+    <section class="page-section" id="contact">
+        <div class="container">
+            <!-- Contact Section Heading-->
+            <div class="text-center">
+                <h2 class="page-section-heading text-secondary d-inline-block mb-0">CONTACT</h2>
+            </div>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Contact Section Content-->
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="icon-contact mb-3"><i class="fas fa-mobile-alt"></i></div>
+                        <div class="text-muted">Phone</div>
+                        <div class="lead font-weight-bold">(90) 016-7596</div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="icon-contact mb-3"><i class="far fa-envelope"></i></div>
+                        <div class="text-muted">Email</div><a class="lead font-weight-bold" href="javohirnarzullayeb@gmail.com">javohirnarzullayeb@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

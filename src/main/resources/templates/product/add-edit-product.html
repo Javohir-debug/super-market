@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Employee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body>
+<div th:replace="~{/fragments/header::header}"></div>
+<div class="container my-5">
+        <h3 class="alert-info text-center text-primary">Edit Product</h3>
+        <!--List Customers-->
+        <div class="card">
+            <div class="card-body">
+                <form th:action="@{/admin/product/edit}" action="/admin/product/edit" th:object="${editProduct}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label for="username" class="col-form-label">Product name</label>
+                            <input type="text" th:field="*{name}" class="form-control"
+                                   id="username" placeholder="iPhone"  required/>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="email" class="col-form-label">Price</label>
+                            <input type="text" th:field="*{price}" min="4" required class="form-control"
+                                   id="email" placeholder="1299$" />
+                        </div>
+                        <div class="form-group col-md-8" >
+                            <label for="category" class="col-form-label">Category</label>
+                            <select class="form-control selectpicker"  th:field="*{category}"  id="category"required >
+                                <option value="">Open this select menu</option>
+                                <option th:text="Technology" th:value="Technology"></option>
+                                <option th:text="Dress" th:value="Dress"></option>
+                                <option th:text="Food" th:value="Food"></option>
+                                <option th:text="Service" th:value="Service"></option>
+                            </select>
+
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="comment">Description</label>
+                            <textarea th:field="*{description}" class="form-control" rows="5" id="comment"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                        </div>
+                        <input type="hidden" id="id" th:field="*{id}">
+                    </div>
+                </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

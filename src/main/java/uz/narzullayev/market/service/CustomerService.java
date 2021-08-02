@@ -22,6 +22,10 @@ public class CustomerService {
 
     }
 
+    public void save(Customer customer){
+        customerRepository.save(customer);
+    }
+
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
@@ -36,4 +40,8 @@ public class CustomerService {
 
     }
 
+    public void deleteCustomerById(Integer customerId) {
+        if (customerId!=null)customerRepository.deleteById(customerId);
+        else throw new NullPointerException("customer id is null");
+    }
 }

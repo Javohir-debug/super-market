@@ -12,13 +12,17 @@ import java.util.List;
 @RestController
 public class ApiController {
 
+    private final CustomerService customerService;
     @Autowired
-    private CustomerService customerService;
+    public ApiController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
 
     @GetMapping("/all")
     public List<Customer> allCustomer(){
-       return customerService.findAll();
+        System.out.println("sout");
+        return customerService.findAll();
    }
 
     @GetMapping("/find/{id}")

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Online Shopping</title>
+        <link th:href="@{css/styles.css}" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{index.css}">
+        <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{css/jquery-ui.min.css}" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{css/heading.css}">
+        <link rel="stylesheet" th:href="@{css/body.css}">
+    </head>
+    <body id="page-top" >
+        <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img class="masthead-avatar" th:src="@{img/brand.png}" id="nav-photo" alt="Brand"></a>
+            <div class="container">
+                <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"  href="#product">Product</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" th:href="@{/invoice}">Invoice</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" th:href="@{/login}">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Avatar Image--><img class="masthead-avatar mb-5" th:src="@{img/portfolio/game.png}" alt="">
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading mb-0">Online Shopping</h1>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <form  method="get">
+           <section class="page-section portfolio " id="product">
+               <div class="container">
+                <!-- Portfolio Section Heading-->
+                <div class="text-center">
+                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">Product</h2>
+                </div>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Grid Items-->
+                <div class="row">
+                    <!-- Portfolio Items-->
+                    <div class="col-md-6 col-lg-4" >
+                        <div class="portfolio-item mx-auto" data-target="#modal-warning" data-toggle="modal">
+                              <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <!--<img class="img-fluid" id="menu" th:src="@{${item.photo.uploadPath}}"  alt="Product"/>-->
+                        </div>
+                    </div>
+                </div>
+               </div>
+        </section>
+        <br></form>
+        <!-- Portfolio Modal-->
+<form method="post">
+        <div class="portfolio-modal modal fade"  tabindex="-1" role="dialog"  aria-labelledby="#portfolioModal5Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8 md-6">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary mb-0" ></h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image-->
+                                   <!-- <img class="img-fluid rounded mb-5" th:src="@{${item.photo.uploadPath}}"  alt="Submarine"/>-->
+                                    <!-- Portfolio Modal - Text-->
+                                    <!--<h6 class="card-price text-center" th:text="${item.price}+'$'"></h6>
+                                    <p class="mb-5" th:text="${item.description}"></p>-->
+                                        <div class="input-group">
+                                           <span class="input-group-btn">
+                                               <button type="button" class="btn btn-danger btn-number" disabled="disabled" data-type="minus" data-field="quantity">
+                                                   -
+                                               </button>
+                                           </span>
+                                        <input id="splinter" type="text" name="quantity" class="form-control input-number" th:value="1" min="1" max="11" />
+                                        <span class="input-group-btn">
+                                         <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quantity">
+                                            +
+                                         </button>
+                                     </span>
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="add">Add task</button>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </form>
+            <br>
+
+        <div th:replace="~{/fragments/header::footer}"></div>
+        <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
+        <div class="scroll-to-top d-lg-none position-fixed"><a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a></div>
+
+    </body>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Contact form JS-->
+    <!-- Core theme JS-->
+    <script th:src="@{/js/scripts.js}"></script>
+
+</html>

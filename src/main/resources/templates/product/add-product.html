@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Add Product</title>
+    <style>
+        .example-1 .form-group{padding:1em;margin:1em}
+        .example-1 input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}
+        .example-1 .label{width:120px;border:2px dashed grey;border-radius:5px;display:block;padding:1.2em;transition:border 300ms ease;cursor:pointer;text-align:center}
+        .example-1 .label i{display:block;font-size:42px;padding-bottom:16px}
+        .example-1 .label i,.example-1 .label .title{color:grey;transition:200ms color}
+        .example-1 .label:hover{border:2px solid #000}
+        .example-1 .label:hover i,.example-1 .label:hover .title{color:#000}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <br>
+        <form class="form-group" action="/admin/product/back" th:action="@{/admin/product/back}" method="get">
+            <input type="submit"  class="btn btn-primary btn-lg" value="Back" style="float:right;">
+        </form>
+
+
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Product Edit</h1>
+            <form class="form-horizontal"  autocomplete="off" enctype="multipart/form-data" th:action="@{/admin/product/add}" th:object="${add}"  method="post">
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-tag"></i>
+                                        </span>
+                        <input id="name"
+                               class="form-control"
+                               placeholder="Product Name"
+                               th:field="*{name}"/>
+                    </div>
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('price')}? 'has-error':''">
+                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-usd"></i>
+                                        </span>
+                        <input id="price"
+                               class="form-control"
+                               type="tel"
+                               placeholder="xx"
+                               th:field="*{price}"/>
+                    </div>
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('price')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <!--                    country-->
+
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('description')}? 'has-error':''">
+                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-text-width"></i>
+                                        </span>
+                        <textarea placeholder="Description" th:field="*{description}" class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('description')}"
+                       th:text="${error}"></p>
+                </div>
+                <div class="form-group col-md-8 ">
+                    <label for="category" class="custom-select">Country</label>
+                    <select class="form-control selectpicker"  th:field="*{category}"  id="category"required >
+                        <option value="">Open this select menu</option>
+                            <option th:text="Technology" th:value="Technology"></option>
+                        <option th:text="Dress" th:value="Dress"></option>
+                        <option th:text="Food" th:value="Food"></option>
+                        <option th:text="Service" th:value="Service"></option>
+                    </select>
+                </div>
+                <div class="form-inline" style="float: left"   >
+                <div class="example-1">
+                    <div class="form-group">
+                        <label class="label">
+                            <i class="material-icons">attach_file</i>
+                            <span class="title">Добавить файл</span>
+                            <input type="file" class="custom-file-input" max-size="3000" th:field="*{multipartFile}" multiple  required>
+                        </label>
+                    </div>
+                </div>
+                </div>
+                <div  class="form-group ">
+                    <button type="submit"  class="btn btn-group-justified btn-success">Add</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+<script>
+    function bs_input_file() {
+        $(".input-file").before(
+            function() {
+                if ( ! $(this).prev().hasClass('input-ghost') ) {
+                    var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+                    element.attr("name",$(this).attr("name"));
+                    element.change(function(){
+                        element.next(element).find('input').val((element.val()).split('\\').pop());
+                    });
+                    $(this).find("button.btn-choose").click(function(){
+                        element.click();
+                    });
+                    $(this).find("button.btn-reset").click(function(){
+                        element.val(null);
+                        $(this).parents(".input-file").find('input').val('');
+                    });
+                    $(this).find('input').css("cursor","pointer");
+                    $(this).find('input').mousedown(function() {
+                        $(this).parents('.input-file').prev().click();
+                        return false;
+                    });
+                    return element;
+                }
+            }
+        );
+    }
+    $(function() {
+        bs_input_file();
+    });
+</script>
+</html>
