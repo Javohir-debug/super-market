@@ -13,7 +13,7 @@
         <link rel="stylesheet" th:href="@{css/heading.css}">
         <link rel="stylesheet" th:href="@{css/body.css}">
     </head>
-    <body id="page-top" >
+    <body id="page-top" th:object="${photos}">
         <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
             <a class="navbar-brand js-scroll-trigger" href="#page-top"><img class="masthead-avatar" th:src="@{img/brand.png}" id="nav-photo" alt="Brand"></a>
             <div class="container">
@@ -41,11 +41,14 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-
+                <!-- Masthead Subheading-->
+                <p class="pre-wrap masthead-subheading font-weight-light mb-0" sec:authorize="hasAuthority('ADMIN')">Hello ADMIN!</p>
+                <p class="pre-wrap masthead-subheading font-weight-light mb-0" sec:authorize="hasAuthority('USER')">Hello User!</p>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                   <strong th:text="${user}"></strong> , I am glad if you like our site
                 </div>
             </div>
         </header>
@@ -65,12 +68,13 @@
                 <!-- Portfolio Grid Items-->
                 <div class="row">
                     <!-- Portfolio Items-->
-                    <div class="col-md-6 col-lg-4" >
-                        <div class="portfolio-item mx-auto" data-target="#modal-warning" data-toggle="modal">
+                    <div class="col-md-6 col-lg-4" th:each="item:${photos.productList}">
+                        <div class="portfolio-item mx-auto" data-target="#modal-warning" data-toggle="modal"
+                             th:attr="data-target='#modal-warning'+${item.photo.id }">
                               <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <!--<img class="img-fluid" id="menu" th:src="@{${item.photo.uploadPath}}"  alt="Product"/>-->
+                            <img class="img-fluid" id="menu" th:src="@{${item.photo.uploadPath}}"  alt="Product"/>
                         </div>
                     </div>
                 </div>
@@ -78,8 +82,8 @@
         </section>
         <br></form>
         <!-- Portfolio Modal-->
-<form method="post">
-        <div class="portfolio-modal modal fade"  tabindex="-1" role="dialog"  aria-labelledby="#portfolioModal5Label" aria-hidden="true">
+<form method="post" th:action="@{|/order/${item.id}|}" th:object="${photos}" th:each="item:${photos.productList}">
+        <div class="portfolio-modal modal fade"  th:id="modal-warning+${item.photo.id }" tabindex="-1" role="dialog"  aria-labelledby="#portfolioModal5Label" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
@@ -89,7 +93,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8 md-6">
                                     <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0" ></h2>
+                                    <h2 class="portfolio-modal-title text-secondary mb-0" th:text="${item.name}"></h2>
                                     <!-- Icon Divider-->
                                     <div class="divider-custom">
                                         <div class="divider-custom-line"></div>
@@ -97,10 +101,10 @@
                                         <div class="divider-custom-line"></div>
                                     </div>
                                     <!-- Portfolio Modal - Image-->
-                                   <!-- <img class="img-fluid rounded mb-5" th:src="@{${item.photo.uploadPath}}"  alt="Submarine"/>-->
+                                    <img class="img-fluid rounded mb-5" th:src="@{${item.photo.uploadPath}}"  alt="Submarine"/>
                                     <!-- Portfolio Modal - Text-->
-                                    <!--<h6 class="card-price text-center" th:text="${item.price}+'$'"></h6>
-                                    <p class="mb-5" th:text="${item.description}"></p>-->
+                                    <h6 class="card-price text-center" th:text="${item.price}+'$'"></h6>
+                                    <p class="mb-5" th:text="${item.description}"></p>
                                         <div class="input-group">
                                            <span class="input-group-btn">
                                                <button type="button" class="btn btn-danger btn-number" disabled="disabled" data-type="minus" data-field="quantity">
