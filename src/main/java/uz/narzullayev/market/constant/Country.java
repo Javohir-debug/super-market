@@ -5,7 +5,8 @@ import java.util.List;
 
 public enum Country {
     UZB(1,"uzbekiston"),
-    RUS(2,"russian");
+    RUS(2,"russian"),
+    KZQ(3,"kazakhstan");
 
     private final Integer id;
     private final String name;

@@ -12,49 +12,43 @@
 
 <div class="container my-2">
     <div th:replace="~{/fragments/header::header}"></div>
-            <div  class="container my-5" th:switch="${user}">
+            <div  class="container my-5" th:switch="${customers}">
                 <div class="col-md-10" >
 
-                    <h2 th:case="null">No record found !!</h2>
-                    <div >
-                        <div class="card-body" th:case="*">
-                            <form autocomplete="off" th:action="@{/admin/customer/search}" class="form-inline mt-2 mt-md-0" method="post" >
-                                <input class="form-control mr-sm-2" name="name" type="text" placeholder="Search" aria-label="Search">
-                                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search"/>
-                            </form><br>
+                    <h2 th:case="null">Suka blyaaa !!</h2>
+                    <div class="card-body" th:case="*">
+                     <form autocomplete="off" th:action="@{/customer/search}" class="form-inline mt-2 mt-md-0" method="post" >
+                         <input class="form-control mr-sm-2" name="customerAddress" type="text" placeholder="Search" aria-label="Search">
+                         <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search"/>
+                     </form><br>
                         <table class="table table-hover table-striped">
                             <thead class="thead-dark">
                             <tr>
-                            <th><i class="fa fa-id-card" aria-hidden="true"></i></th>
-                                <th>Name</th>
-                                <th>Phone</th>
-                                <th>Username</th>
-                                <th>Country</th>
-                                <th>Email</th>
-                                <th>Active</th>
+                                <th><i class="fa fa-id-card" aria-hidden="true"></i></th>
+                                <th>address</th>
+                                <th>country</th>
+                                <th>phoneNumber</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
-                              <tr  th:each="info:${user}">
-                                  <td th:text="${info.id}"></td>
-                                  <td th:text="${info.name}"></td>
-                                  <td th:text="${info.phone}"></td>
-                                  <td th:text="${info.username}"></td>
-                                  <td th:text="${info.country}"></td>
-                                  <td th:text="${info.email}"></td>
-                                  <td th:text="${info.active}"></td>
+                              <tr  th:each="customer: ${customers}">
+                                  <td th:text="${customer.id}"></td>
+                                  <td th:text="${customer.address}"></td>
+                                  <td th:text="${customer.country}"></td>
+                                  <td th:text="${customer.phoneNumber}"></td>
                                   <td>
-                                      <a th:href="@{/admin/customer/edit/{id}(id=${info.id})}"  class="btn btn-primary btn-lg btn-block">
+                                      <a th:href="@{/customer/edit/{id}(id=${customer.id})}"  class="btn btn-primary btn-lg btn-block">
                                           <i class="fas fa-edit "></i>
                                       </a>
                                   </td>
                                   <td>
-                                      <a th:href="@{/admin/customer/delete/{id}(id=${info.id})}" class="btn btn-danger btn-lg btn-block">
+                                      <a th:href="@{/customer/delete/{id}(id=${customer.id})}" class="btn btn-danger btn-lg btn-block">
                                           <i class="fa fa-trash" aria-hidden="true"></i>
                                       </a>
                                   </td>
+                              </tr>
 
                             </tbody>
                         </table>

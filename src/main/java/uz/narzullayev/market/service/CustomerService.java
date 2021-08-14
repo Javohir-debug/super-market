@@ -44,4 +44,9 @@ public class CustomerService {
         if (customerId!=null)customerRepository.deleteById(customerId);
         else throw new NullPointerException("customer id is null");
     }
+
+    public List<Customer> findByCustomerAddress(String customerAddress) {
+        if (customerAddress==null || customerAddress.trim().isEmpty())return findAll();
+       return customerRepository.findCustomerByAddressContainingIgnoreCase(customerAddress);
+    };
 }
