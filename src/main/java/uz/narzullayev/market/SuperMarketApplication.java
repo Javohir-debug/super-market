@@ -14,8 +14,11 @@ import java.util.Collections;
 @SpringBootApplication
 public class SuperMarketApplication {
 
+    private final CustomerService customerService;
     @Autowired
-    private CustomerService customerService;
+    public SuperMarketApplication(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(SuperMarketApplication.class, args);
