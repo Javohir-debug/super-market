@@ -15,7 +15,7 @@
             <div  class="container my-5" th:switch="${customers}">
                 <div class="col-md-10" >
 
-                    <h2 th:case="null">Suka blyaaa !!</h2>
+                    <h2 th:case="null">Not found !!</h2>
                     <div class="card-body" th:case="*">
                      <form autocomplete="off" th:action="@{/customer/search}" class="form-inline mt-2 mt-md-0" method="post" >
                          <input class="form-control mr-sm-2" name="customerAddress" type="text" placeholder="Search" aria-label="Search">

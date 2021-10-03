@@ -9,7 +9,7 @@ import uz.narzullayev.market.constant.Country;
 import uz.narzullayev.market.entity.Customer;
 import uz.narzullayev.market.service.CustomerService;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 @SpringBootApplication
 public class SuperMarketApplication {
@@ -32,7 +32,7 @@ public class SuperMarketApplication {
             customer1.setPhoneNumber("+9999999");
 
 
-            customerService.saveAll(Arrays.asList(customer1));
+            customerService.saveAll(Collections.singletonList(customer1));
 
         };
     }
