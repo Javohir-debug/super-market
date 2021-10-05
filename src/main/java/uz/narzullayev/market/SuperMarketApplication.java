@@ -28,14 +28,12 @@ public class SuperMarketApplication {
     @Bean
     CommandLineRunner commandLineRunner(){
         return args -> {
-            Customer customer1=new Customer();
-            customer1.setId(1);
-            customer1.setAddress("SUXROB");
-            customer1.setCountry(Country.RUS);
-            customer1.setPhoneNumber("+9999999");
-
-
-            customerService.saveAll(Collections.singletonList(customer1));
+            Customer customer=new Customer();
+            customer.setId(1);
+            customer.setAddress("SUXROB");
+            customer.setCountry(Country.RUS);
+            customer.setPhoneNumber("+9999999");
+            customerService.saveAll(Collections.singletonList(customer));
 
         };
     }
